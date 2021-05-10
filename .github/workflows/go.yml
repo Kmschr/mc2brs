@@ -22,7 +22,7 @@ jobs:
       run: go get -u golang.org/x/sys
 
     - name: Build
-      run: go build -v ./...
+      run: go build -v .
       
     - name: Vet and lint
       run: |

@@ -69,7 +69,7 @@ func (w *World) ConvertRegion(regionX int, regionZ int) brs.Save {
 							if !known {
 								continue
 							}
-							pos := util.Vec3{X: x << 1, Z: z << 1, Y: y << 1}
+							pos := util.Vec3{X: x << 1 * ansi.Scale(), Z: z << 1 * ansi.Scale(), Y: y << 1 * ansi.Scale()}
 							bricks[pos] = block.resolveBrick(x, z, y, color)
 						}
 					}
@@ -86,7 +86,6 @@ func (w *World) ConvertRegion(regionX int, regionZ int) brs.Save {
 		optimize(bricks)
 		optimize(bricks)
 	}
-	enbiggen(bricks, ansi.Scale())
 	save.Bricks = bricks
 	return save
 }
@@ -97,7 +96,7 @@ func (b BlockState) resolveBrick(x, z, y int, color color.RGBA) brs.Brick {
 	if b.isStairs() {
 		brick = b.resolveStairs(x, z, y, color)
 	} else {
-		brick = brs.NewBrick(color, x<<1, z<<1, (y+64)<<1, b.Name)
+		brick = brs.NewBrick(color, x, z, y+64, b.Name)
 	}
 	modifyMaterial(b, &brick)
 	return brick
@@ -110,12 +109,12 @@ func (b BlockState) resolveStairs(x, z, y int, color color.RGBA) brs.Brick {
 	half := b.Properties["half"]
 	facing := b.Properties["facing"]
 	if shape == "straight" {
-		brick = brs.NewWedge(color, x<<1, z<<1, (y+64)<<1, b.Name, facing)
+		brick = brs.NewWedge(color, x, z, y+64, b.Name, facing)
 		if half == "top" {
 			brick.Rotation++
 		}
 	} else if shape == "outer_right" || shape == "outer_left" {
-		brick = brs.NewCorner(color, x<<1, z<<1, (y+64)<<1, b.Name, facing)
+		brick = brs.NewCorner(color, x, z, y+64, b.Name, facing)
 		if shape == "outer_left" {
 			brick.Rotation += 3
 		}
@@ -128,7 +127,7 @@ func (b BlockState) resolveStairs(x, z, y int, color color.RGBA) brs.Brick {
 			}
 		}
 	} else if shape == "inner_right" || shape == "inner_left" {
-		brick = brs.NewInnerCorner(color, x<<1, z<<1, (y+64)<<1, b.Name, facing)
+		brick = brs.NewInnerCorner(color, x, z, y+64, b.Name, facing)
 		if shape == "inner_left" {
 			brick.Rotation += 3
 		}
@@ -192,33 +191,6 @@ func postProcess(bricks map[util.Vec3]brs.Brick) {
 		i++
 	}
 	ansi.Println(ansi.BrightBlue, "]")
-}
-
-// enbiggen scales up the world by a given scaling factor.
-// A scale of 1 corresponds to a single microbrick.
-// A scale of 13 is about right for a 1 to 1 conversion.
-func enbiggen(bricks map[util.Vec3]brs.Brick, scale int) {
-	if scale == 1 {
-		return
-	}
-	ansi.Print(ansi.BrightYellow, "Scaling")
-	ansi.Print(ansi.BrightBlue, "         [")
-	progressPoint := len(bricks) / 16
-	i := 0
-	for pos, brick := range bricks {
-		if i%progressPoint == 0 {
-			ansi.Print(ansi.BrightBlue, "#")
-		}
-		brick.Size[0] *= scale
-		brick.Size[1] *= scale
-		brick.Size[2] *= scale
-		brick.Pos[0] *= scale
-		brick.Pos[1] *= scale
-		brick.Pos[2] *= scale
-		bricks[pos] = brick
-		i++
-	}
-	ansi.Println(ansi.BrightBlue, "] ")
 }
 
 // surrounded returns whether or not a block is visible due to being covered by other blocks

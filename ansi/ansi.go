@@ -57,7 +57,7 @@ var dimensions = map[string]string{
 	"e":         "end",
 }
 
-var scale = 13
+var scale = 16
 var optimize = true
 var dimension = "overworld"
 var lights = true
@@ -125,11 +125,15 @@ func BasicPrompt(msg string) string {
 			return BasicPrompt(msg)
 		}
 		newScale, err := strconv.Atoi(args[1])
-		if err != nil || newScale <= 0 || newScale > 16 {
+		if err != nil || newScale <= 0 || newScale > 10 {
 			Println(BrightRed, "Invalid scale")
 			return BasicPrompt(msg)
 		}
-		scale = newScale
+		if newScale == 1 {
+			scale = newScale
+		} else {
+			scale = (newScale - 1) * 2
+		}
 		Println(BrightBlue, fmt.Sprintf("Scale set to %d", scale))
 		return BasicPrompt(msg)
 	}
@@ -192,7 +196,7 @@ func Help() {
 	Println(BrightGreen, "displays info about commands")
 	Print(BrightWhite, "s scale\t ")
 	Print(BrightCyan, "x\t")
-	Println(BrightGreen, "set the size of converted blocks (1-16), default 13")
+	Println(BrightGreen, "set the size of converted blocks (1-10), default 8")
 	Print(BrightWhite, "o optimize ")
 	Print(BrightCyan, "t/f\t")
 	Println(BrightGreen, "enable optimization to reduce brick count, default true")

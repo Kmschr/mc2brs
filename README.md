@@ -16,4 +16,4 @@ You can install the executable from the [releases](https://github.com/kmschr/mc2
 
 ## Compatibility
 
-mc2brs is generally compatible with every Minecraft world started in 1.14 or later, though there may be some issues if the world was converted from an earlier version or if a world editing tool such as MCEdit or WorldPainter was used. It has been tested on snapshot `21w18a`.
+mc2brs is generally compatible with every Minecraft Java Edition world started in 1.14 or later, though there may be some issues if the world was converted from an earlier version or if a world editing tool such as MCEdit or WorldPainter was used. It has been tested on snapshot `21w18a`. Support for Bedrock Edition may be added at a later point.

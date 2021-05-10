@@ -146,6 +146,58 @@ var stairs = map[string]bool{
 	"minecraft:deepslate_brick_stairs":           true,
 }
 
+// stairs is a "constant set" of block names for all slab type blocks
+var slabs = map[string]bool{
+	"minecraft:acacia_slab":                    true,
+	"minecraft:andesite_slab":                  true,
+	"minecraft:birch_slab":                     true,
+	"minecraft:blackstone_slab":                true,
+	"minecraft:brick_slab":                     true,
+	"minecraft:cobbled_deepslate_slab":         true,
+	"minecraft:cobblestone_slab":               true,
+	"minecraft:crimson_slab":                   true,
+	"minecraft:cut_copper_slab":                true,
+	"minecraft:cut_red_sandstone_slab":         true,
+	"minecraft:cut_sandstone_slab":             true,
+	"minecraft:dark_oak_slab":                  true,
+	"minecraft:dark_prismarine_slab":           true,
+	"minecraft:deepslate_brick_slab":           true,
+	"minecraft:deepslate_tile_slab":            true,
+	"minecraft:diorite_slab":                   true,
+	"minecraft:end_stone_brick_slab":           true,
+	"minecraft:exposed_cut_copper_slab":        true,
+	"minecraft:granite_slab":                   true,
+	"minecraft:jungle_slab":                    true,
+	"minecraft:mossy_cobblestone_slab":         true,
+	"minecraft:mossy_stone_brick_slab":         true,
+	"minecraft:nether_brick_slab":              true,
+	"minecraft:oak_slab":                       true,
+	"minecraft:oxidized_copper_slab":           true,
+	"minecraft:oxidized_cut_copper_slab":       true,
+	"minecraft:petrified_oak_slab":             true,
+	"minecraft:polished_andesite_slab":         true,
+	"minecraft:polished_blackstone_brick_slab": true,
+	"minecraft:polished_blackstone_slab":       true,
+	"minecraft:polished_diorite_slab":          true,
+	"minecraft:polished_deepslate_slab":        true,
+	"minecraft:polished_granite_slab":          true,
+	"minecraft:prismarine_brick_slab":          true,
+	"minecraft:prismarine_slab":                true,
+	"minecraft:purpur_slab":                    true,
+	"minecraft:quartz_slab":                    true,
+	"minecraft:red_nether_brick_slab":          true,
+	"minecraft:red_sandstone_slab":             true,
+	"minecraft:sandstone_slab":                 true,
+	"minecraft:smooth_red_sandstone_slab":      true,
+	"minecraft:smooth_sandstone_slab":          true,
+	"minecraft:smooth_quartz_slab":             true,
+	"minecraft:smooth_stone_slab":              true,
+	"minecraft:spruce_slab":                    true,
+	"minecraft:stone_brick_slab":               true,
+	"minecraft:stone_slab":                     true,
+	"minecraft:warped_slab":                    true,
+}
+
 // sprite is a "constant set" of sprite block names.
 // A sprite here is not purely just sprite blocks, but
 // any block that is not treated as a standard cube or
@@ -542,6 +594,11 @@ func (b BlockState) isSnow() bool {
 // isStairs returns whether or not a block is a stair block
 func (b BlockState) isStairs() bool {
 	return stairs[b.Name]
+}
+
+// isSlab returns whether or not a block is a slab block
+func (b BlockState) isSlab() bool {
+	return slabs[b.Name]
 }
 
 // Glows returns whether or not a block is a glow block

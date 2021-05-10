@@ -614,7 +614,7 @@ func (b BlockState) isGlass() bool {
 // isTransparent returns whether or not a block is treated as transparent by the converter.
 // This includes all glass, foliage, stairs, and other non-water type "transparent" blocks
 func (b BlockState) isTransparent() bool {
-	return transparent[b.Name] || b.isGlass() || b.isFoliage() || b.isStairs()
+	return transparent[b.Name] || b.isGlass() || b.isFoliage() || b.isStairs() || b.isSlab()
 }
 
 // isPortal returns whether or not a block is treated as a portal by the converter.

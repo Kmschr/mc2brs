@@ -95,6 +95,8 @@ func (b BlockState) resolveBrick(x, z, y int, color color.RGBA) brs.Brick {
 	var brick brs.Brick
 	if b.isStairs() {
 		brick = b.resolveStairs(x, z, y, color)
+	} else if b.isSlab() {
+		brick = b.resolveSlab(x, z, y, color)
 	} else {
 		brick = brs.NewBrick(color, x, z, y+64, b.Name)
 	}
@@ -136,6 +138,30 @@ func (b BlockState) resolveStairs(x, z, y int, color color.RGBA) brs.Brick {
 			brick.Rotation++
 		}
 	}
+	return brick
+}
+
+func (b BlockState) resolveSlab(x, z, y int, color color.RGBA) brs.Brick {
+	if ansi.Scale() == 1 {
+		return brs.NewBrick(color, x, z, y+64, b.Name)
+	}
+
+	var brick brs.Brick
+
+	half := b.Properties["type"]
+	switch half {
+	case "top":
+		brick = brs.NewBrick(color, x, z, y+64, b.Name)
+		brick.Pos[2] += brick.Size[2] / 2
+		brick.Size[2] /= 2
+	case "bottom":
+		brick = brs.NewBrick(color, x, z, y+64, b.Name)
+		brick.Pos[2] -= brick.Size[2] / 2
+		brick.Size[2] /= 2
+	default:
+		brick = brs.NewBrick(color, x, z, y+64, b.Name)
+	}
+
 	return brick
 }
 

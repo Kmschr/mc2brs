@@ -178,7 +178,7 @@ func modifyMaterial(b BlockState, brick *brs.Brick) {
 		brick.MaterialIndex = brs.MaterialGlass
 		brick.Intensity = 7
 	} else if b.isPortal() {
-		brick.MaterialIndex = brs.MaterialGhost
+		brick.MaterialIndex = brs.MaterialGlass
 		brick.Collision = false
 	} else if b.isIce() {
 		brick.MaterialIndex = brs.MaterialGlass

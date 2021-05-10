@@ -8,6 +8,9 @@ You can install the executable from the [releases](https://github.com/kmschr/mc2
 
 ## Example Output
 
+### Castle
+![Image of Castle](img/castle.png)
+
 ### The Nether
 ![Image of Nether](img/nether.png)
 
